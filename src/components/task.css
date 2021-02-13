@@ -1,0 +1,57 @@
+.container-task {
+    display: grid;
+    border: 1px solid gray;     
+    border-radius: 5px;
+    color: white;
+}
+
+.task {
+    display: grid;
+    grid-template-columns: 12% 76% 12%;
+    align-items: center;
+}
+
+/* subtasks */
+
+.list-subtasks-task {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid gray;
+}
+
+.subtask-task {
+    display: grid;
+    grid-template-columns: 15% 85%;
+    align-items: center;
+    position: relative;
+    left: 7%;
+    width: 93%;
+}
+
+/* check */
+
+.container-check,
+.container-trash {
+    display: flex;
+    justify-content: center;
+}
+
+.fas.fa-check,
+.fas.fa-trash {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+}
+
+.fas.fa-check {
+    background-color: rgb(47, 255, 134);
+    color: black;
+    border-radius: 50%;   
+    font-size: 14px; 
+}
+
+.fas.fa-trash {
+    color: red;
+}

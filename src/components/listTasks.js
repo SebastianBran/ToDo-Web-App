@@ -1,5 +1,6 @@
 import React from 'react'
 import './listTasks.css'
+import Task from './task'
 
 class ListTasks extends React.Component {
     render() {
@@ -14,7 +15,9 @@ class ListTasks extends React.Component {
                     </select>
                 </div>
                 <div className="container-tasks">
-
+                    <Task 
+                        value="Ir al mercado"
+                    />
                 </div>
             </div>
         );

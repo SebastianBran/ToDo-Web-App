@@ -10,6 +10,7 @@ function Input(props) {
             onChange={props.onChange}
             value={props.value}
             id={props.id}
+            autoComplete="off"
         >
         </input>
     );
@@ -27,7 +28,7 @@ function Button(props) {
     );
 }
 
-function Subtask(props) {
+function SubtaskForm(props) {
     return(
         <div 
             className="subtask"
@@ -36,8 +37,13 @@ function Subtask(props) {
         >
             <p>{props.value}</p>
             <i 
+                className="fas fa-pen"
+                onClick={props.onClickEditSubstask}
+            >
+            </i>
+            <i 
                 className="fas fa-times"
-                onClick={() => {console.log("click 8)")}}
+                onClick={props.onClickDeleteSubtask}
             >
             </i>
         </div> 
@@ -68,23 +74,48 @@ class FormTask extends React.Component {
         });
     }
 
-    handleClickAddSubtask = () => {
+    validInputSubtask = () => {
+        let subtask = this.state.subtask;
+        for(let i = 0; i < subtask.length; i++) {
+            if(subtask[i] !== ' ') return true;
+        }
+        return false;
+    }
+
+    onClickAddSubtask = () => {
+        if(this.validInputSubtask()) {
+            let listSubtasks = this.state.listSubtasks;
+            listSubtasks.push(this.state.subtask);
+            this.setState({
+                subtask: '',
+                listSubtasks: listSubtasks,
+            });
+        }
+        else this.setState({subtask: ''});
+    }
+
+    onClickEditSubtask = (id) => {
+        let subtask = this.state.listSubtasks[id];
+        this.setState({subtask: subtask});
+        this.onClickDeleteSubtask(id);
+    }
+
+    onClickDeleteSubtask = (id) => {
         let listSubtasks = this.state.listSubtasks;
-        listSubtasks.push(this.state.subtask);
-        this.setState({
-            subtask: '',
-            listSubtasks: listSubtasks,
-        });
+        listSubtasks.splice(id, 1);
+        this.setState({listSubtasks: listSubtasks});
     }
 
     render() {
         const listSubtasks = this.state.listSubtasks;
         const showSubtask = listSubtasks.map((i, j) => {
             return(
-                <Subtask 
+                <SubtaskForm 
                     value={i}
                     id={j}
                     key={j}
+                    onClickEditSubstask={() => this.onClickEditSubtask(j)}
+                    onClickDeleteSubtask={() => this.onClickDeleteSubtask(j)}
                 />
             );
         });
@@ -116,7 +147,7 @@ class FormTask extends React.Component {
                             className="form-button-addSubtask"
                             id="button-addSubtask"
                             name="Add"
-                            onClick={this.handleClickAddSubtask}
+                            onClick={this.onClickAddSubtask}
                         />
                     </div>
                     <div className="container-subtasks">

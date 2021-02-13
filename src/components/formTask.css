@@ -20,8 +20,8 @@
 .form-input-task {
     width: 100%;
     margin: 10px;
+    font-size: 16px;
 }
-
 /* -------------- */
 
 .form-subtasks, .container-input-button { display: grid; }
@@ -90,22 +90,32 @@
 
 .subtask {
     display: grid;
-    grid-template-columns: 90% 10%;
+    grid-template-columns: 80% 10% 10%;
     align-items: center;
     border: 1px solid gray; 
     border-radius: 5px;
-    list-style: none;
     width: 95%;
     padding: 0px 10px;
     margin: 5px 0px;
 }
 
-.subtask i {
+.subtask p { font-size: 13px; }
+
+.fas.fa-pen,
+.fas.fa-times {
     display: flex;
     justify-content: center;
-    color: red;
-    font-size: 20px;
     cursor: pointer;
+}
+
+.fas.fa-pen {
+    color: rgb(47, 137, 255);
+    font-size: 14px;
+}
+
+.fas.fa-times { 
+    color: red; 
+    font-size: 20px;
 }
 /* -------------- */
 
@@ -138,5 +148,7 @@ input {
     box-shadow: 0px 0px 5px rgb(74, 216, 252);
     color: white;
 }
+
+input:focus { box-shadow: 0px 0px 10px rgb(0, 204, 255); }
 
 input::placeholder { color: gray; }
