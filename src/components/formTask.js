@@ -54,20 +54,26 @@ class FormTask extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            task: '',
-            subtask: '',
-            listSubtasks: Array(0)
+            task: {
+                value: '',
+                completed: false,
+                listSubtasks: Array(0)
+            },
+            subtask: ''
         }
     }
     
+    // Prevent refresh the page
     onSubmit = (e) => { e.preventDefault(); }
 
+    // Update the task value
     onChangeTask = (e) => {
-        this.setState({
-            task: e.target.value
-        });
+        const task = {...this.state.task};
+        task.value = e.target.value;
+        this.setState({task: task});
     }
 
+    //Update the subtask value
     onChangeSubtask = (e) => {
         this.setState({
             subtask: e.target.value
@@ -75,7 +81,7 @@ class FormTask extends React.Component {
     }
 
     validInputSubtask = () => {
-        let subtask = this.state.subtask;
+        const subtask = this.state.subtask;
         for(let i = 0; i < subtask.length; i++) {
             if(subtask[i] !== ' ') return true;
         }
@@ -84,34 +90,50 @@ class FormTask extends React.Component {
 
     onClickAddSubtask = () => {
         if(this.validInputSubtask()) {
-            let listSubtasks = this.state.listSubtasks;
-            listSubtasks.push(this.state.subtask);
+            const task = {...this.state.task};
+            task.listSubtasks.push({
+                value: this.state.subtask, 
+                completed: false
+            });
             this.setState({
-                subtask: '',
-                listSubtasks: listSubtasks,
+                task: task,
+                subtask: ''
             });
         }
         else this.setState({subtask: ''});
     }
 
     onClickEditSubtask = (id) => {
-        let subtask = this.state.listSubtasks[id];
+        const subtask = this.state.task.listSubtasks[id].value;
         this.setState({subtask: subtask});
         this.onClickDeleteSubtask(id);
     }
 
     onClickDeleteSubtask = (id) => {
-        let listSubtasks = this.state.listSubtasks;
-        listSubtasks.splice(id, 1);
-        this.setState({listSubtasks: listSubtasks});
+        const task = {...this.state.task};
+        task.listSubtasks.splice(id, 1);
+        this.setState({task: task});
+    }
+
+    onClickAddTask = () => {
+        /*JSON.parse(JSON.stringify({..}) this is used to copy an object whitout reference*/
+        const task = JSON.parse(JSON.stringify({...this.state.task})); 
+        const aux = JSON.parse(JSON.stringify(task));
+        this.props.addTask(task);
+        aux.value = '';
+        aux.listSubtasks = Array(0);
+        this.setState({
+            task: aux,
+            subtask: ''
+        });
     }
 
     render() {
-        const listSubtasks = this.state.listSubtasks;
-        const showSubtask = listSubtasks.map((i, j) => {
+        const task = {...this.state.task};
+        const showSubtask = task.listSubtasks.map((i, j) => {
             return(
                 <SubtaskForm 
-                    value={i}
+                    value={i.value}
                     id={j}
                     key={j}
                     onClickEditSubstask={() => this.onClickEditSubtask(j)}
@@ -130,7 +152,7 @@ class FormTask extends React.Component {
                         className="form-input-task"
                         placeholder="Add a task"
                         onChange={this.onChangeTask}
-                        value={this.state.task}
+                        value={this.state.task.value}
                         id="task"
                     />
                 </div>
@@ -159,6 +181,7 @@ class FormTask extends React.Component {
                         className="form-button-addTask"
                         id="button-addTask"
                         name="Add task"
+                        onClick={this.onClickAddTask}
                     />
                 </div>
             </form>

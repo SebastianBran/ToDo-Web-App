@@ -2,6 +2,7 @@
     display: grid;
     border: 1px solid gray;     
     border-radius: 5px;
+    margin-bottom: 10px;
     color: white;
 }
 
@@ -9,7 +10,12 @@
     display: grid;
     grid-template-columns: 12% 76% 12%;
     align-items: center;
+    
 }
+
+/* .text-task {
+    text-decoration: line-through;
+} */
 
 /* subtasks */
 
@@ -46,7 +52,8 @@
 }
 
 .fas.fa-check {
-    background-color: rgb(47, 255, 134);
+    /* background-color: rgb(47, 255, 134); */
+    /* background-color: rgb(192, 192, 192); */
     color: black;
     border-radius: 50%;   
     font-size: 14px; 

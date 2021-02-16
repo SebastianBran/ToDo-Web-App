@@ -4,6 +4,20 @@ import Task from './task'
 
 class ListTasks extends React.Component {
     render() {
+        const tasks = this.props.tasks;
+        const showTasks = tasks.map((i, j) => {
+            return(
+                <Task
+                    task={i}
+                    id={j}
+                    key={j}
+                    delete={() => this.props.deleteTask(j)}
+                    onClickCheckboxTask={() => this.props.onClickCheckboxTask(j)}
+                    onClickCheckboxSubtask={this.props.onClickCheckboxSubtask}
+                />
+            );
+        });
+
         return(
             <div className="listTasks">
                 <div className="container-filter">
@@ -15,9 +29,7 @@ class ListTasks extends React.Component {
                     </select>
                 </div>
                 <div className="container-tasks">
-                    <Task 
-                        value="Ir al mercado"
-                    />
+                    {showTasks}
                 </div>
             </div>
         );
