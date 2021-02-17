@@ -37,14 +37,24 @@ class App extends React.Component {
 
     onClickCheckboxTask = (id) => {
         const tasks = this.state.tasks;
-        tasks[id].completed = !tasks[id].completed;
+        const task = tasks[id];
+        task.completed = !task.completed; //change the completed value of the task (true or false)
+        const subtasks = task.listSubtasks;
+        //change the completed value of the subtask to the completed value of the task
+        for(let i = 0; i < subtasks.length; i++)
+            subtasks[i].completed = task.completed;
+        task.listSubtasks = subtasks;
+        tasks[id] = task;
         this.setState({tasks: tasks});
     }
 
     onClickCheckboxSubtask = (idTask, idSubtask) => {
         const tasks = this.state.tasks;
         const task = tasks[idTask];
-        task.listSubtasks[idSubtask].completed = !task.listSubtasks[idSubtask].completed;
+        const subtasks = task.listSubtasks;
+        if(subtasks[idSubtask].completed) task.completed = false;
+        subtasks[idSubtask].completed = !subtasks[idSubtask].completed;
+        task.listSubtasks = subtasks;
         tasks[idTask] = task;
         this.setState({tasks: tasks});
         console.log(tasks);

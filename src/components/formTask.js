@@ -68,7 +68,7 @@ class FormTask extends React.Component {
 
     // Update the task value
     onChangeTask = (e) => {
-        const task = {...this.state.task};
+        const task = this.state.task;
         task.value = e.target.value;
         this.setState({task: task});
     }
@@ -90,7 +90,7 @@ class FormTask extends React.Component {
 
     onClickAddSubtask = () => {
         if(this.validInputSubtask()) {
-            const task = {...this.state.task};
+            const task = this.state.task;
             task.listSubtasks.push({
                 value: this.state.subtask, 
                 completed: false
@@ -110,14 +110,14 @@ class FormTask extends React.Component {
     }
 
     onClickDeleteSubtask = (id) => {
-        const task = {...this.state.task};
+        const task = this.state.task;
         task.listSubtasks.splice(id, 1);
         this.setState({task: task});
     }
 
     onClickAddTask = () => {
-        /*JSON.parse(JSON.stringify({..}) this is used to copy an object whitout reference*/
-        const task = JSON.parse(JSON.stringify({...this.state.task})); 
+        /*JSON.parse(JSON.stringify(object) this is used to copy an object whitout reference*/
+        const task = JSON.parse(JSON.stringify(this.state.task)); 
         const aux = JSON.parse(JSON.stringify(task));
         this.props.addTask(task);
         aux.value = '';
@@ -129,7 +129,7 @@ class FormTask extends React.Component {
     }
 
     render() {
-        const task = {...this.state.task};
+        const task = this.state.task;
         const showSubtask = task.listSubtasks.map((i, j) => {
             return(
                 <SubtaskForm 
