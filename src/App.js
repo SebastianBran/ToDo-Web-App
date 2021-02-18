@@ -7,7 +7,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tasks: Array(0),
+            tasks: Array(0)
         }
     }
 
@@ -63,7 +63,9 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
-                <div className="Header">Sebas' To Do</div>
+                <div className="Header">
+                    <p>To Do</p>
+                </div>
                 <div className="board">
                     <FormTask 
                         addTask={this.addTask}

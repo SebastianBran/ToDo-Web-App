@@ -60,6 +60,7 @@
 }
 
 /* scroll bar container-substasks */
+
 /* Tamaño del scroll */
 .container-subtasks::-webkit-scrollbar {
     width: 8px;
